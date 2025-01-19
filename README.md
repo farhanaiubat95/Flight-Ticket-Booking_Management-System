@@ -1,2 +1,2 @@
 # Flight-Ticket-Booking_Management-System
- Mern Stack Project
+ ASP .NET CORE 8 MVC Project
