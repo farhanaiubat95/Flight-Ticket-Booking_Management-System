@@ -1,0 +1,71 @@
+@model ToursDto
+@{
+
+}
+
+<div class="row inventory-body">
+    <div class="col-md-8 mx-auto rounded border p-4">
+        <h2 class="text-center text-white  mb-5">Update Tour Details</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="form-group mb-3">
+                <label class="control-label text-white mb-1">ID : @ViewData["ToursId"]</label>
+                @* <h6 class="text-white mb-1">ID : @ViewData["ToursId"]</h6> *@
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="FlightFrom" class="control-label text-white  mb-3">Flight From</label>
+                <input asp-for="FlightFrom" class="form-control" />
+                <span asp-validation-for="FlightFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="FlightTo" class="control-label text-white mb-3 ">Flight To</label>
+                <input asp-for="FlightTo" class="form-control" />
+                <span asp-validation-for="FlightTo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DepartureDate" class="control-label text-white mb-3"></label>
+                <input asp-for="DepartureDate" class="form-control" />
+                <span asp-validation-for="DepartureDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ArrivalDate" class="control-label text-white mb-3"></label>
+                <input asp-for="ArrivalDate" class="form-control" />
+                <span asp-validation-for="ArrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Price" class="control-label text-white mb-3"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Maxperson" class="control-label text-white mb-3"></label>
+                <input asp-for="Maxperson" class="form-control" />
+                <span asp-validation-for="Maxperson" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <p>Image</p>
+                <img src="/tourAddImage/@ViewData["ToursImage"]" class="w-100" height="210" />
+            </div>
+            <div class="form-group mb-3">
+                <input class="text-white " type="file" asp-for="PhotoFile" />
+                <span asp-validation-for="PhotoFile" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label text-white mb-1">Created At</label>
+                <input class="form-control-plaintext text-warning" readonly value="@ViewData["ToursCreateAt"]" />
+            </div>
+            <div class="form-group mb-3">
+                <label class="control-label text-white mb-1">Updated At</label>
+                <input class="form-control-plaintext text-warning" readonly value="@ViewData["ToursUpdatedAt"]" />
+            </div>
+            <div class="row mb-3">
+                <div class="offset-sm-4 col-sm-4 d-grid text-center">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+                <div class="col-sm-4 d-grid  text-right">
+                    <a asp-action="GetAll" asp-controller="Inventory" class="btn btn-secondary" role="button">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

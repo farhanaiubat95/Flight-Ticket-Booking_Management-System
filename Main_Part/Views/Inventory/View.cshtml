@@ -1,0 +1,24 @@
+@model Tours
+@{
+
+}
+
+<div class="view-body">
+    <h2 class="text-center text-white mb-5">View Tour Details</h2>
+    <div class="view-content">
+        <div class="view-img">
+            <img src="/tourAddImage/@ViewData["ToursImage"]" class="view-full-img" />
+        </div>
+        <div class="view-text">
+            <h6 class="text-white"><span>Id : @ViewData["ToursId"]</span></h6>
+            <h6 class="text-white"><span>FlightFrom : </span> <span>@ViewData["FlightFrom"]</span> </h6>
+            <h6 class="text-white"><span>FlightTo : </span> <span>@ViewData["FlightTo"]</span> </h6>
+            <h6 class="text-white"><span>DepartureDate : </span> <span>@ViewData["DepartureDate"]</span> </h6>
+            <h6 class="text-white"><span>ArrivalDate : </span> <span>@ViewData["ArrivalDate"]</span> </h6>
+            <h6 class="text-white"><span>Maxperson : </span> <span>@ViewData["Maxperson"]</span></h6>
+            <h6 class="text-white"><span>CreateAt : </span> <span>@ViewData["ToursCreateAt"]</span></h6>
+            <h6 class="text-white"><span>Price : Tk </span> <span>@ViewData["Price"]</span> </h6>      
+        </div>
+        
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model List<Tours>
+
+<div class="inventory-body">
+    <h2 class="text-center text-white mb-2">All Tour Details</h2>
+
+    <div class="row mb-5">
+        <div class="col">
+            <a asp-controller="Inventory" asp-action="Create" class="btn btn-primary">Create New Tour</a>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+
+    <table class="table table-bordered my-5" id="toursTable">
+        <thead>
+            <tr class="text-center text-white ">
+                <th>Id</th>
+                <th>FlightFrom</th>
+                <th>FlightTo</th>
+                <th>DepartureDate</th>
+                <th>ArrivalDate</th>
+                <th>Price</th>
+                <th>Maxperson</th>
+                <th>Photo</th>
+                <th>CreateAt</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tour in Model)
+            {
+                <tr class="text-center text-white ">
+                    <td>@tour.Id</td>
+                    <td>@tour.FlightFrom</td>
+                    <td>@tour.FlightTo</td>
+                    <td>@tour.DepartureDate</td>
+                    <td>@tour.ArrivalDate</td>
+                    <td>Tk@(tour.Price)</td>
+                    <td>@tour.Maxperson</td>
+                    @* tour.photo *@
+                    <td><img src="/tourAddImage/@tour.Photo" width="100" height="100" /></td>
+                    <td>@tour.CreateAt.ToString("MM/dd/yyyy")</td>
+                    <td>
+                        <div class="d-flex gap-3">
+                            <a asp-action="Edit" asp-controller="Inventory" asp-route-id="@tour.Id"
+                                class="btn btn-primary">Edit</a>
+                            <a asp-action="View" asp-controller="Inventory" asp-route-id="@tour.Id"
+                                class="btn btn-info">View</a>
+                            <a asp-action="Delete" asp-controller="Inventory" asp-route-id="@tour.Id" class="btn btn-danger"
+                                onclick="return alert('Are you really want to Delete the row?')">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
