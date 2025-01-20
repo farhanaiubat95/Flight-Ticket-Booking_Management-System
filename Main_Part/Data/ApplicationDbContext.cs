@@ -11,6 +11,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-    public DbSet<Tours> Tours_table { get; set; } // Tour = Tour.cs , Tour_table = Table name from ApplicationUser.cs
+    public DbSet<Tours> Tours_table { get; set; } // Tours = Models.Tours.cs , Tours_table = Table name
+    public DbSet<Booking> Bookings { get; set; }// Booking = Models.Booking.cs , Bookings = Table name
 
 }
