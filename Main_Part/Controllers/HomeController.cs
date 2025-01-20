@@ -1,21 +1,27 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Main_Part.Models;
+using Main_Part.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Main_Part.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationDbContext context;
+    private readonly IWebHostEnvironment environment;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ApplicationDbContext context, IWebHostEnvironment environment)
     {
-        _logger = logger;
+        this.context = context;
+        this.environment = environment;
     }
+
 
     public IActionResult Index()
     {
-        return View();
+        var tours = context.Tours_table.ToList();
+        return View(tours);
     }
 
     public IActionResult Privacy()
