@@ -18,6 +18,8 @@ namespace Main_Part.Models
         public string? Status { get; set; } // "Booked", "Pending", "Canceled"
         public DateTime BookingDate { get; set; }
         public DateTime? CanceledDate { get; set; }
+        public string? TicketNumber { get; set; }
+        public DateTime? CancelDeadline { get; set; }
 
         // Navigation Properties
         public Tours? Tour { get; set; }

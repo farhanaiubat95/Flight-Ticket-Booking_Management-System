@@ -24,10 +24,14 @@ namespace Main_Part.Models
         [MaxLength(100)]
         public int Maxperson { get; set; } = 0;
 
+        public int AvailableSeats { get; set; }
+
+        public ICollection<Booking>? Bookings { get; set; }
         [MaxLength(100)]
         public string Photo { get; set; } = "";
         public DateTime CreateAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }
     }
+   
 }
