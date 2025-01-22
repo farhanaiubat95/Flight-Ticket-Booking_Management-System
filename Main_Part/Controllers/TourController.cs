@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Main_Part.Data;
+using Main_Part.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Main_Part.Controllers
@@ -12,15 +16,32 @@ namespace Main_Part.Controllers
     [Authorize]
     public class TourController : Controller
     {
-        public IActionResult GetAll()
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+
+        public TourController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
-            return View();
+            _context = context;
+            _environment = environment;
+        }
+        // GET: Tour/List
+        public IActionResult List()
+        {
+            var tours = _context.Tours_table.ToList();
+            return View(tours);
         }
 
-        // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        // public IActionResult Error()
-        // {
-        //     return View("Error!");
-        // }
+        // GET: Tour/Details/5
+        public IActionResult Details(int id)
+        {
+            var tour = _context.Tours_table.FirstOrDefault(t => t.Id == id);
+            if (tour == null)
+            {
+                return NotFound();
+            }
+            return View(tour);
+        }
+
     }
+
 }

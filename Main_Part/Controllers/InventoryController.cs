@@ -7,6 +7,7 @@ using Main_Part.Data;
 using Main_Part.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace Main_Part.Controllers
@@ -202,5 +203,16 @@ namespace Main_Part.Controllers
             return View();
 
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminBookings()
+        {
+            var bookings = context.Bookings
+                .Include(b => b.Tour)
+                .Include(b => b.User)
+                .ToList();
+            return View(bookings);
+        }
+
     }
 }
