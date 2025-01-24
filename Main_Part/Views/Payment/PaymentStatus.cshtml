@@ -1,0 +1,21 @@
+@model Booking
+
+<div class="payment-status" style="text-white">
+    <h1 class="text-center mb-1">Payment Status</h1>
+    <p>Booking ID: @Model.BookingId</p>
+    <p>Ticket Number: @Model.TicketNumber</p>
+    <p>Transaction ID: @Model.TransactionId</p>
+    <p>Status: @Model.PaymentStatus</p>
+    @if (@Model.PaymentOption == "Bkash")
+    {
+        <img src="/tour/Bkash.png" style="width: 100px;">
+    }
+    @if (@Model.PaymentOption == "Nagad")
+    {
+        <img src="/tour/Nagad.png" style="width: 100px;">
+    }
+    @if (@Model.PaymentOption == "Card")
+    {
+        <img src="/tour/Card.png" style="width: 100px;">
+    }
+</div>
