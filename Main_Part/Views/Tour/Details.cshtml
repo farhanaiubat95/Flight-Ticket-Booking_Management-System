@@ -1,0 +1,16 @@
+@model Main_Part.Models.Tours
+
+<div class="container">
+    <h2>@Model.FlightFrom to @Model.FlightTo</h2>
+    <p><strong>Departure:</strong> @Model.DepartureDate</p>
+    <p><strong>Arrival:</strong> @Model.ArrivalDate</p>
+    <p><strong>Price:</strong> @Model.Price</p>
+    <p><strong>Available Seats:</strong> @Model.AvailableSeats</p>
+    <p><strong>Description:</strong> Some description about the tour.</p>
+@* 
+    <form action="@Url.Action("BookNow", "Booking", new { id = Model.Id })" method="get">
+        <button type="submit" class="btn btn-primary">Book Now</button>
+    </form>
+    <a href="@Url.Action("Details", "Tour", new { id = Model.Id })" class="btn btn-primary">Book
+        Now</a> *@
+</div>

@@ -1,0 +1,96 @@
+@model Main_Part.Models.Tours
+@{
+
+}
+@* <h1>Book Tour: @Model.FlightTo</h1>
+<form asp-action="ConfirmBooking" asp-controller="Booking" method="post">
+    <input type="hidden" name="tourId" value="@Model.Id" />
+    el for="fullName">Full Name:</label>
+    <input type="text" id="fullName" name="fullName" required />
+    <label for="passengerCount">Number of Passengers:</label>
+    <input type="number" id="passengerCount" name="passengerCount" required />
+    <button type="submit">Confirm</button>
+</form> *@
+
+<div class="row book-full g-4">
+    <h3 class="text-center text-white  mb-1">Book Tour Details</h3>
+    <div class="col-12 col-md-7">
+        <div class="book-tour-details">
+            <span class="tour-span">@Model.FlightTo</span>
+            <div class="book-img">
+                <img src="/tourAddImage/@Model.Photo" alt="">
+            </div>
+            <div class="tour_ifo">
+                <div class="tour-top"><span>@Model.FlightFrom</span> to <span>@Model.FlightTo</span></div>
+                <div class="tour-Date">
+                    <h5>Departure Data : @Model.DepartureDate</h5>
+                    <h5>Arrival Data : @Model.ArrivalDate</h5>
+                </div>
+                <div class="tour-seat">
+                    <span>Available Seat : @Model.Maxperson </span>
+                </div>
+                <div class="tour-money">
+                    <span class="tour-price-tk">Tk</span>
+                    <span class="tour-price-amount">@Model.Price</span>
+                    <span class="tour-price-person"> / per person</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-5">
+        <div class="book-form">
+            <div class="tour-money">
+                <span class="tour-price-tk">Tk</span>
+                <span class="tour-price-amount">@Model.Price</span>
+                <span class="tour-price-person"> / per person</span>
+            </div>
+            <h5>Information</h5>
+            <form asp-action="ConfirmBooking" asp-controller="Booking" method="post">
+                <input type="hidden" name="tourId" value="@Model.Id" />
+                <input class="passenger-input" type="text" id="fullName" name="fullName" placeholder="full name"
+                    required />
+                <input class="passenger-input" type="number" id="PassengerCount" name="PassengerCount"
+                    oninput="calculateTotal()" placeholder="total person" required />
+                <div class="book-text">
+                    <span>Tk @Model.Price X 1 person</span>
+                    <span>Tk @Model.Price</span>
+                </div>
+                <div class="book-text">
+                    <span>Service Charge</span>
+                    <span>Tk 10</span>
+                </div>
+                <div class="book-text">
+                    <span>Total Ammount</span>
+                    <span>tk <span id="TotalAmount">0</span></span>
+                </div>
+                <input type="hidden" id="PricePerPerson" value="@Model.Price">
+                <div class="tour-btn">
+                    <button type="submit"
+                        onclick="return checkAvailability(@Model.Maxperson, @Model.AvailableSeats)">Confirm
+                        Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function calculateTotal() {
+        const passengers = document.getElementById("PassengerCount").value;
+        const price = document.getElementById("PricePerPerson").value;
+        const total = passengers * price + 10;
+        document.getElementById("TotalAmount").innerHTML = total;
+    }
+
+
+    function checkAvailability(maxSeats, availableSeats) {
+        const passengers = document.getElementById("PassengerCount").value;
+        if ((availableSeats + passengers) > maxSeats) {
+            alert("All seats are booked!");
+            return false;
+        }
+        alert("Are you Sure to Book");
+        return true;
+    }
+</script>
