@@ -1,5 +1,7 @@
-﻿@{
+﻿@model List<Tours>
+@{
     ViewData["Title"] = "Home Page";
+    bool hideSection = User.IsInRole("User") || User.IsInRole("Admin");
 }
 
 <div class="container">
@@ -7,9 +9,46 @@
         <div class="banner-image">
             <img src="~/tour/banner1.jpg" alt="" style="width: 100%; height: 600px; border-radius: 260px;">
             <div class="image-overlay">
-                <h1 style="text-shadow:2px 2px #968f8f;" class="display-4">Welcome to Our Tourist Destination</h1>
-                <p style="text-shadow:2px 2px #968f8f;" class="lead">Discover the magic of our beautiful countryside</p>
+                <h1 style="text-shadow:2px 2px #0698d1;" class="display-4">Welcome to Our Tourist Destination</h1>
+                <p style="text-shadow:2px 2px #0698d1;" class="lead">Discover the magic of our beautiful countryside</p>
             </div>
         </div>
     </main>
+    @if (!hideSection)
+    {
+        <section class="tour-details">
+            <span class="tour-span">Explore</span>
+            <h2 class="tour-h2">Find your best tour</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+                @foreach (var tour in Model)
+                {
+                    <div class="col mb-3">
+                        <div class="tour-card">
+                            <div class="tour-img">
+                                <img src="/tourAddImage/@tour.Photo" alt="">
+                                <h5>@tour.FlightTo</h5>
+                            </div>
+                            <div class="tour-content">
+                                <span class="tour-text-left">From</span>
+                                <span class="tour-from">@tour.FlightFrom</span>
+                            </div>
+                            <div class="tour-content">
+                                <span class="tour-text-left">To</span>
+                                <span class="tour-to">@tour.FlightTo</span>
+                            </div>
+                            <div class="tour-price">
+                                <span class="tour-price-tk">Tk</span>
+                                <span class="tour-price-amount">@tour.Price</span>
+                                <span class="tour-price-person"> / per person</span>
+                            </div>
+
+                            <div class="tour-a">
+                                <a asp-area="Identity" asp-page="/Account/Login">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
 </div>

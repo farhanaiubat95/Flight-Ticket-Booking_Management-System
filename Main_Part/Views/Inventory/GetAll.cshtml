@@ -21,7 +21,8 @@
                 <th>DepartureDate</th>
                 <th>ArrivalDate</th>
                 <th>Price</th>
-                <th>Maxperson</th>
+                <th>Available Seats</th>
+                <th>Total Passenger</th>
                 <th>Photo</th>
                 <th>CreateAt</th>
                 <th>Actions</th>
@@ -39,6 +40,7 @@
                     <td>@tour.ArrivalDate</td>
                     <td>Tk@(tour.Price)</td>
                     <td>@tour.Maxperson</td>
+                    <td>@tour.AvailableSeats</td>
                     @* tour.photo *@
                     <td><img src="/tourAddImage/@tour.Photo" width="100" height="100" /></td>
                     <td>@tour.CreateAt.ToString("MM/dd/yyyy")</td>

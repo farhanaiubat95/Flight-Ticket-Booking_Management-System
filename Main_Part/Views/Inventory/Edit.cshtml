@@ -28,7 +28,7 @@
                 <span asp-validation-for="DepartureDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="ArrivalDate" class="control-label text-white mb-3"></label>
+                <label asp-for="ArrivalDate" class="control-label text-white mb-3">Arrival Date</label>
                 <input asp-for="ArrivalDate" class="form-control" />
                 <span asp-validation-for="ArrivalDate" class="text-danger"></span>
             </div>
@@ -38,13 +38,13 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Maxperson" class="control-label text-white mb-3"></label>
+                <label asp-for="Maxperson" class="control-label text-white mb-3">Available Seats</label>
                 <input asp-for="Maxperson" class="form-control" />
                 <span asp-validation-for="Maxperson" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
                 <p>Image</p>
-                <img src="/tourAddImage/@ViewData["ToursImage"]" class="w-100" height="210" />
+                <img src="/tourAddImage/@ViewData["ToursImage"]" class="w-100" height="270" />
             </div>
             <div class="form-group mb-3">
                 <input class="text-white " type="file" asp-for="PhotoFile" />
