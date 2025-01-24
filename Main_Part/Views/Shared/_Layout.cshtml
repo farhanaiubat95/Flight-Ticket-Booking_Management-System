@@ -4,9 +4,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Main_Part</title>
+    <title>Home page-Flight Nest</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tour.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/payment.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Main_Part.styles.css" asp-append-version="true" />
 </head>
 
@@ -27,16 +32,19 @@
                         <li class="nav-item">
                             <a class="nav-a" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @if (User != null && User.Identity != null && User.Identity.IsAuthenticated)
+                        @if (User != null && User.IsInRole("User"))
                         {
                             <li class="nav-item">
-                                <a class="nav-a" asp-area="" asp-controller="Tour" asp-action="GetAll">Tour</a>
+                                <a class="nav-a" asp-area="" asp-controller="Tour" asp-action="List">Tour List</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-a" asp-area="" asp-controller="Booking" asp-action="BookingList">Booked List</a>
                             </li>
                         }
                         @if (User != null && User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-a" asp-area="" asp-controller="Inventory"                           asp-action="GetAll">Inventory</a>
+                                <a class="nav-a" asp-area="" asp-controller="Inventory" asp-action="GetAll">Inventory</a>
                             </li>
                         }
                         <li class="nav-item">
@@ -65,6 +73,9 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"
+        integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
