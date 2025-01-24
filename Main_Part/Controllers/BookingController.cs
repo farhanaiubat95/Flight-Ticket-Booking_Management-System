@@ -42,55 +42,76 @@ namespace Main_Part.Controllers
             return View(tour);
         }
 
-        // POST: Booking/BookNow
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> BookNow(int tourId, int passengerCount)
+        // POST: Booking/ConfirmBooking
+        [HttpPost("ConfirmBooking")]
+        public async Task<IActionResult> ConfirmBooking(int tourId, string fullName, int passengerCount)
+
         {
-            var tour = await _context.Tours_table.FindAsync(tourId);
-            if (tour == null)
+            var tour = await _context.Tours_table.FirstOrDefaultAsync(t => t.Id == tourId);
+            if (tour != null)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+
+                if (tour.AvailableSeats + passengerCount > tour.Maxperson)
+                {
+                    ModelState.AddModelError("", "Not enough seats available.");
+                    return View(tour); // Make sure this points to a valid view.
+                }
+
+                tour.Maxperson -= passengerCount;
+                tour.AvailableSeats = tour.AvailableSeats + passengerCount + 0;
+                _context.Tours_table.Update(tour);
+                await _context.SaveChangesAsync();
+
+                var booking = new Booking
+                {
+                    TourId = tourId,
+                    UserId = user?.Id,
+                    BookUserNsme = fullName,
+                    PassengerCount = passengerCount,
+                    TotalAmount = passengerCount * tour.Price + 10,
+                    Status = "Pending",
+                    PaymentStatus = "Unpaid",
+                    BookingDate = DateTime.Now
+                };
+                ViewData["FlightFrom"] = tour.FlightFrom;
+                ViewData["FlightTo"] = tour.FlightTo;
+                ViewData["fullname"] = booking.BookUserNsme;
+                _context.Bookings.Add(booking);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("PaymentOptions", "Payment", new { bookingId = booking.BookingId });
+            }
+            else
             {
                 return NotFound();
             }
-            if (tour.AvailableSeats + passengerCount > tour.Maxperson)
-            {
-                ModelState.AddModelError("", "Cannot exceed the maximum number of people for this tour.");
-                return View(tour);
-            }
-
-            tour.Maxperson -= passengerCount;
-            tour.AvailableSeats = 0 + tour.AvailableSeats + passengerCount;
-            _context.Tours_table.Update(tour);
-            await _context.SaveChangesAsync();
-
-            // // Check if the booking exceeds the max allowed number of passengers
-            // var totalBookedSeats = _context.Bookings.Where(b => b.TourId == tourId).Sum(b => b.PassengerCount);
 
 
-            var user = await _userManager.GetUserAsync(User);
-            var booking = new Booking
-            {
-                TourId = tourId,
-                UserId = user?.Id,
-                PassengerCount = passengerCount,
-                TotalAmount = passengerCount * tour.Price + 10,
-                Status = "Booked",
-                BookingDate = DateTime.Now
-            };
-
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("BookingList");
         }
 
-        // GET: Booking/BookingList
-        public async Task<IActionResult> BookingList()
-        {
-            var userId = (await _userManager.GetUserAsync(User))?.Id;
-            var bookings = await _context.Bookings.Where(b => b.UserId == userId).Include(b => b.Tour).ToListAsync();
-            return View(bookings);
 
+        // GET: Booking/BookingList
+        public IActionResult BookingList()
+        {
+            var userId = _userManager.GetUserId(User);
+            var bookings = _context.Bookings.Where(b => b.UserId == userId).ToList();
+
+            // Mark expired bookings
+            foreach (var booking in bookings)
+            {
+                var tour = _context.Tours_table.FirstOrDefault(t => t.Id == booking.TourId);
+                if (tour != null && tour.ArrivalDate < DateTime.Now && booking.Status == "Confirmed")
+                {
+                    booking.Status = "Expired";
+                    _context.Bookings.Update(booking);
+                }
+            }
+
+            _context.SaveChanges();
+
+            return View(bookings);
         }
         public IActionResult CancelBooking(int id)
         {
@@ -148,6 +169,8 @@ namespace Main_Part.Controllers
                 return memoryStream.ToArray();
             }
         }
+
+
     }
 
 }

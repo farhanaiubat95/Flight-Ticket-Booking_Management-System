@@ -25,20 +25,19 @@ namespace Main_Part.Controllers
             _environment = environment;
         }
         // GET: Tour/List
+        [HttpGet("list")]
         public IActionResult List()
         {
             var tours = _context.Tours_table.ToList();
             return View(tours);
         }
 
-        // GET: Tour/Details/5
-        public IActionResult Details(int id)
+        // GET: Tour/BookNow/5
+        [HttpGet("booknow/{id}")]
+        public IActionResult BookNow(int id)
         {
-            var tour = _context.Tours_table.FirstOrDefault(t => t.Id == id);
-            if (tour == null)
-            {
-                return NotFound();
-            }
+            var tour = _context.Tours_table.Find(id);
+            if (tour == null) return NotFound(); // Ensure tour exists
             return View(tour);
         }
 
