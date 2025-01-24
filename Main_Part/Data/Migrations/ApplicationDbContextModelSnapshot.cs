@@ -101,6 +101,9 @@ namespace Main_Part.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
 
+                    b.Property<string>("BookUserNsme")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BookingDate")
                         .HasColumnType("datetime2");
 
@@ -112,6 +115,12 @@ namespace Main_Part.Data.Migrations
 
                     b.Property<int>("PassengerCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("PaymentOption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
@@ -125,6 +134,9 @@ namespace Main_Part.Data.Migrations
 
                     b.Property<int>("TourId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TransactionId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
