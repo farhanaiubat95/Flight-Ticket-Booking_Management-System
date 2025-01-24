@@ -28,7 +28,12 @@
     padding: 4px;
     border: 2px solid #0698d1;
     border-radius: 20px;
-    box-shadow: #0698d1a1 0px 3px 8px;
+    box-shadow: #0698d1a1 0px 3px 1px;
+    cursor: pointer;
+}
+
+.tour-card:hover {
+    box-shadow: #0698d1a1 0px 5px 15px;
 }
 
 .tour-img {
@@ -127,7 +132,7 @@
     color: #0698d1;
 }
 
-/* Book Page */
+/* Book Now */
 .book-full {
     margin-top: 20px;
     margin-bottom: 100px;
@@ -199,6 +204,7 @@
     border-top: 2px solid #0698d1;
     margin-top: 12px;
 }
+
 .passenger-input {
     width: 100%;
     background-color: transparent;
@@ -211,15 +217,18 @@
     margin-bottom: 30px;
 
 }
-.passenger-input::placeholder{
+
+.passenger-input::placeholder {
     color: #f4e0e0f6;
     font-size: 15px;
 
 }
-.passenger-input:focus{
+
+.passenger-input:focus {
     outline: none;
 }
-.book-text{
+
+.book-text {
     color: #f4e0e0f6;
     font-size: 16px;
     display: flex;
@@ -255,7 +264,40 @@
     font-weight: 600;
 }
 
+.cancel-span {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #0dcaf0;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 1px solid #0dcaf0;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
 
+}
+
+.Paid-span {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #06e730;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: 1px solid #06e730;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+}
 
 /* Responsive */
 @media (min-width: 768px) {
