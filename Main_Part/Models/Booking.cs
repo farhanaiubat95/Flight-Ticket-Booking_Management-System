@@ -12,16 +12,21 @@ namespace Main_Part.Models
         public int BookingId { get; set; }
         public int TourId { get; set; }
         public string? UserId { get; set; }
+        public string? BookUserNsme { get; set; }
         public int PassengerCount { get; set; }
         [Precision(16, 2)]
         public decimal TotalAmount { get; set; }
         public string? Status { get; set; } // "Booked", "Pending", "Canceled"
         public DateTime BookingDate { get; set; }
         public DateTime? CanceledDate { get; set; }
-        public string? TicketNumber { get; set; }
         public DateTime? CancelDeadline { get; set; }
+        public string? TicketNumber { get; set; }
+        public string? PaymentOption { get; set; }
+        public string? PaymentStatus { get; set; } // "Paid" or "Pending"
+        public string? TransactionId { get; set; } // Unique transaction ID for payments
 
         // Navigation Properties
+        
         public Tours? Tour { get; set; }
         public ApplicationUser? User { get; set; }
     }
