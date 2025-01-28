@@ -70,7 +70,7 @@ namespace Main_Part.Controllers
                     UserId = user?.Id,
                     BookUserNsme = fullName,
                     PassengerCount = passengerCount,
-                    TotalAmount = passengerCount * tour.Price + 10,
+                    TotalAmount = passengerCount * tour.Price + 100,
                     Status = "Pending",
                     PaymentStatus = "Unpaid",
                     BookingDate = DateTime.Now
@@ -97,6 +97,11 @@ namespace Main_Part.Controllers
         {
             var userId = _userManager.GetUserId(User);
             var bookings = _context.Bookings.Where(b => b.UserId == userId).ToList();
+            if (bookings == null)
+            {
+                return NotFound();
+            }
+
 
             // Mark expired bookings
             foreach (var booking in bookings)

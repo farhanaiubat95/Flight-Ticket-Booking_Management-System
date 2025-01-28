@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Main_Part.Data;
 using Main_Part.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -16,9 +17,12 @@ namespace Main_Part.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public PaymentController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public PaymentController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public IActionResult PaymentOptions(int bookingId)
@@ -30,7 +34,7 @@ namespace Main_Part.Controllers
             if (tour == null) return NotFound();
             ViewData["FlightFrom"] = tour.FlightFrom;
             ViewData["FlightTo"] = tour.FlightTo;
-            ViewData["fullname"] =booking.BookUserNsme;
+            ViewData["fullname"] = booking.BookUserNsme;
             return View(booking);
         }
 
@@ -54,10 +58,24 @@ namespace Main_Part.Controllers
             return RedirectToAction("PaymentStatus", new { bookingId = booking.BookingId });
         }
 
-        public IActionResult PaymentStatus(int bookingId)
+        public async Task<IActionResult> PaymentStatus(int bookingId)
         {
             var booking = _context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
             if (booking == null) return NotFound();
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return NotFound();
+
+            var userId = user.Id;
+
+            ViewData["fullname"] = booking.BookUserNsme;
+            ViewData["userEmail"] = await _userManager.GetEmailAsync(user);
+            ViewData["userPhoneNumber"] = await _userManager.GetPhoneNumberAsync(user);
+
+            var tour = _context.Tours_table.FirstOrDefault(t => t.Id == booking.TourId);
+            if (tour == null) return NotFound();
+            ViewData["FlightFrom"] = tour.FlightFrom;
+            ViewData["FlightTo"] = tour.FlightTo;
 
             return View(booking);
         }
