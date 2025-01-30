@@ -57,7 +57,7 @@
                 </div>
                 <div class="book-text">
                     <span>Service Charge</span>
-                    <span>Tk 10</span>
+                    <span>Tk 100</span>
                 </div>
                 <div class="book-text">
                     <span>Total Ammount</span>
@@ -79,7 +79,7 @@
     function calculateTotal() {
         const passengers = document.getElementById("PassengerCount").value;
         const price = document.getElementById("PricePerPerson").value;
-        const total = passengers * price + 10;
+        const total = passengers * price + 100;
         document.getElementById("TotalAmount").innerHTML = total;
     }
 
