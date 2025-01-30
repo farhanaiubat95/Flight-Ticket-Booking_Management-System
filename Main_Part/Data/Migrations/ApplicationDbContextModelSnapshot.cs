@@ -22,6 +22,11 @@ namespace Main_Part.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("BookingNumbers", "shared");
+
+            modelBuilder.HasSequence<int>("PaymentNumbers", "shared")
+                .StartsAt(202501L);
+
             modelBuilder.Entity("Main_Part.Data.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -97,9 +102,8 @@ namespace Main_Part.Data.Migrations
                 {
                     b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR shared.BookingNumbers");
 
                     b.Property<string>("BookUserNsme")
                         .HasColumnType("nvarchar(max)");
@@ -115,6 +119,14 @@ namespace Main_Part.Data.Migrations
 
                     b.Property<int>("PassengerCount")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR shared.PaymentNumbers");
 
                     b.Property<string>("PaymentOption")
                         .HasColumnType("nvarchar(max)");

@@ -55,7 +55,7 @@
                         }
                         else
                         {
-                            <a href="@Url.Action("PaymentStatus", "Payment", new { bookingId = booking.BookingId })" class="btn"
+                            <a href="@Url.Action("PaymentStatus", "Payment", new { bookingId = booking.BookingId})" class="btn"
                                 style="background-color: #c39619; color: white;">View</a>
                         }
                     </td>
@@ -80,7 +80,7 @@
                             }
                             else
                             {
-                                <a href="@Url.Action("PaymentOptions", "Payment", new { bookingId = booking.BookingId })"
+                                <a href="@Url.Action("PaymentOptions", "Payment", new { bookingId = booking.BookingId})"
                                     class="btn" style="background-color: #19c338; color: white;">Pay Now</a>
                             }
                         }
@@ -92,7 +92,7 @@
                     <td>
                         @if (booking.Status != "Cancelled" && (DateTime.Now - booking.BookingDate).TotalHours <= 24)
                         {
-                            <a href="@Url.Action("CancelBooking", "Booking", new { id = booking.BookingId })"
+                            <a href="@Url.Action("CancelBooking", "Booking", new { id = booking.BookingId})"
                                 class="btn btn-danger">Cancel</a>
                         } @if (booking.Status != "Cancelled" && (DateTime.Now - booking.BookingDate).TotalHours >= 24)
                         {

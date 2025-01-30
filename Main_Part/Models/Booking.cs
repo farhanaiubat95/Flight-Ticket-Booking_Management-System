@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Main_Part.Data;
@@ -10,6 +12,8 @@ namespace Main_Part.Models
     public class Booking
     {
         public int BookingId { get; set; }
+
+        public int? PaymentId { get; set; }
         public int TourId { get; set; }
         public string? UserId { get; set; }
         public string? BookUserNsme { get; set; }
@@ -24,9 +28,10 @@ namespace Main_Part.Models
         public string? PaymentOption { get; set; }
         public string? PaymentStatus { get; set; } // "Paid" or "Pending"
         public string? TransactionId { get; set; } // Unique transaction ID for payments
+        public DateTime? PaymentDate { get; set; }
 
         // Navigation Properties
-        
+
         public Tours? Tour { get; set; }
         public ApplicationUser? User { get; set; }
     }
