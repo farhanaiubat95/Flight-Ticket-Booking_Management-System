@@ -22,11 +22,11 @@
             {
                 <tr class="text-center text-white ">
                     <td>@(booking.Tour != null ? booking.Tour.FlightFrom : null) - @(booking.Tour != null ?
-                    booking.Tour.FlightTo : null)</td>
-                    <td>@booking.PassengerCount</td>
-                    <td>@booking.TotalAmount</td>
-                    <td>@booking.BookingDate.ToString("MM/dd/yyyy")</td>
-                    <td>
+                                            booking.Tour.FlightTo : null)</td>
+                <td>@booking.PassengerCount</td>
+                <td>@booking.TotalAmount</td>
+                <td>@booking.BookingDate.ToString("MM/dd/yyyy")</td>
+                <td>
                         @if (booking.Status == "Booked")
                         {
                             <span style="color: #6bebfc;">Booked</span>
@@ -37,7 +37,8 @@
                         }
                         @if (booking.Status == "Pending")
                         {
-                            <span style="color: #1bc239;">Pending</span>
+                            <span style="color: #19c338;">pending</span>
+                            
                         }
                         @if (booking.Status == "Expired")
                         {
@@ -47,6 +48,7 @@
                         {
                             <span class="text-warning">Cancelled</span>
                         }
+
                     </td>
                     <td>
                         @if (booking.Status == "Cancelled")
@@ -55,8 +57,16 @@
                         }
                         else
                         {
-                            <a href="@Url.Action("PaymentStatus", "Payment", new { bookingId = booking.BookingId})" class="btn"
-                                style="background-color: #c39619; color: white;">View</a>
+                            @if (booking.PaymentStatus == "Paid")
+                            {
+                                <a href="@Url.Action("PaymentStatus", "Payment", new { bookingId = booking.BookingId })" class="btn"
+                                    style="background-color: #c39619; color: white;">View</a>
+                            }
+                            else
+                            {
+                                <span class="text-warning" style="color: #c39619;">View</span>
+                            }
+
                         }
                     </td>
                     <td>
@@ -80,8 +90,8 @@
                             }
                             else
                             {
-                                <a href="@Url.Action("PaymentOptions", "Payment", new { bookingId = booking.BookingId})"
-                                    class="btn" style="background-color: #19c338; color: white;">Pay Now</a>
+                                <a href="@Url.Action("PaymentOptions", "Payment", new { bookingId = booking.BookingId })" class="btn"
+                                    style="background-color: #19c338; color: white;">Pay Now</a>
                             }
                         }
                         @if (booking.Status == "Expired")
@@ -92,12 +102,14 @@
                     <td>
                         @if (booking.Status != "Cancelled" && (DateTime.Now - booking.BookingDate).TotalHours <= 24)
                         {
-                            <a href="@Url.Action("CancelBooking", "Booking", new { id = booking.BookingId})"
+                            <a href="@Url.Action("CancelBooking", "Booking", new { id = booking.BookingId })"
                                 class="btn btn-danger">Cancel</a>
-                        } @if (booking.Status != "Cancelled" && (DateTime.Now - booking.BookingDate).TotalHours >= 24)
+                        }
+     @if (booking.Status != "Cancelled" && (DateTime.Now - booking.BookingDate).TotalHours >= 24)
                         {
                             <span class="cancel-span">Not Cancel</span>
-                        }@if (booking.Status == "Cancelled")
+                        }
+    @if (booking.Status == "Cancelled")
                         {
                             <span class="cancel-span " style="color: #c22c1b;  border: 1px solid #c22c1b;"> Cancel Done</span>
                         }
