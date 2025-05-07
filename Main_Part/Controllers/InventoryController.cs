@@ -24,10 +24,23 @@ namespace Main_Part.Controllers
             this.environment = environment;
         }
 
-        public IActionResult GetAll()
+        // search
+        public IActionResult GetAll(string? searchTerm)
         {
-            var tours = context.Tours_table.OrderByDescending(t => t.Id).ToList();
-            return View(tours);
+            var tours = context.Tours_table.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                tours = tours.Where(t =>
+                    t.FlightFrom.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.FlightTo.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.DepartureDate.ToString().Contains(searchTerm) ||
+                    t.ArrivalDate.ToString().Contains(searchTerm)
+                );
+            }
+
+            tours = tours.OrderByDescending(t => t.Id);
+            return View(tours.ToList());
         }
 
         [HttpGet("create")]

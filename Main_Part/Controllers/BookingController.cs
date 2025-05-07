@@ -56,10 +56,9 @@ namespace Main_Part.Controllers
                 if (tour.AvailableSeats + passengerCount > tour.Maxperson)
                 {
                     ModelState.AddModelError("", "Not enough seats available.");
-                    return View(tour); // Make sure this points to a valid view.
+                    return View(tour);
                 }
-
-                tour.Maxperson -= passengerCount;
+                // Passenger Count
                 tour.AvailableSeats = tour.AvailableSeats + passengerCount + 0;
                 _context.Tours_table.Update(tour);
                 await _context.SaveChangesAsync();

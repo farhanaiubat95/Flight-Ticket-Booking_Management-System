@@ -34,4 +34,25 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    [HttpGet]
+    public IActionResult Search(string flightFrom, string flightTo)
+    {
+        var query = context.Tours_table.AsQueryable();
+
+        if (!string.IsNullOrEmpty(flightFrom))
+        {
+            query = query.Where(t => t.FlightFrom.ToLower().Contains(flightFrom.ToLower()));
+        }
+
+        if (!string.IsNullOrEmpty(flightTo))
+        {
+            query = query.Where(t => t.FlightTo.ToLower().Contains(flightTo.ToLower()));
+        }
+
+        var searchResults = query.ToList();
+
+        return View("Index", searchResults); // Show result in Home/Index.cshtml
+    }
+
 }

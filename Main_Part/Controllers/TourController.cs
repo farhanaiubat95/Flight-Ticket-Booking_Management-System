@@ -26,10 +26,22 @@ namespace Main_Part.Controllers
         }
         // GET: Tour/List
         [HttpGet("list")]
-        public IActionResult List()
+        public IActionResult List(string? searchTerm)
         {
-            var tours = _context.Tours_table.ToList();
-            return View(tours);
+            var tours = _context.Tours_table.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                tours = tours.Where(t =>
+                    t.FlightFrom.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.FlightTo.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.DepartureDate.ToString().Contains(searchTerm) ||
+                    t.ArrivalDate.ToString().Contains(searchTerm) ||
+                    t.Price.ToString().Contains(searchTerm) 
+                );
+            }
+
+            return View(tours.ToList());
         }
 
         // GET: Tour/BookNow/5
@@ -40,6 +52,7 @@ namespace Main_Part.Controllers
             if (tour == null) return NotFound(); // Ensure tour exists
             return View(tour);
         }
+
 
     }
 
