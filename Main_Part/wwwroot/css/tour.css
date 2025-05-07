@@ -82,7 +82,12 @@
 .tour-to {
     font-size: 18px;
     font-weight: 600;
-    color: #ca7373;
+    color: #488935;
+}
+.tour-date{
+    font-size: 17px;
+    font-weight: 500;
+    color: #2fa89e;
 }
 
 .tour-price {

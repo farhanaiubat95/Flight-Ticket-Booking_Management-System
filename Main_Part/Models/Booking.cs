@@ -13,7 +13,7 @@ namespace Main_Part.Models
     {
         public int BookingId { get; set; }
 
-        public int? PaymentId { get; set; }
+        public string? PaymentID { get; set; }
         public int TourId { get; set; }
         public string? UserId { get; set; }
         public string? BookUserNsme { get; set; }
