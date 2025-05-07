@@ -2,15 +2,6 @@
 @{
 
 }
-@* <h1>Book Tour: @Model.FlightTo</h1>
-<form asp-action="ConfirmBooking" asp-controller="Booking" method="post">
-    <input type="hidden" name="tourId" value="@Model.Id" />
-    el for="fullName">Full Name:</label>
-    <input type="text" id="fullName" name="fullName" required />
-    <label for="passengerCount">Number of Passengers:</label>
-    <input type="number" id="passengerCount" name="passengerCount" required />
-    <button type="submit">Confirm</button>
-</form> *@
 
 <div class="row book-full g-4">
     <h3 class="text-center text-white  mb-1">Book Tour Details</h3>
@@ -27,7 +18,7 @@
                     <h5>Arrival Data : @Model.ArrivalDate</h5>
                 </div>
                 <div class="tour-seat">
-                    <span>Available Seat : @Model.Maxperson </span>
+                    <span>Available Seat : @(Model.Maxperson - Model.AvailableSeats)</span>
                 </div>
                 <div class="tour-money">
                     <span class="tour-price-tk">Tk</span>
@@ -85,12 +76,28 @@
 
 
     function checkAvailability(maxSeats, availableSeats) {
-        const passengers = document.getElementById("PassengerCount").value;
-        if ((availableSeats + passengers) > maxSeats) {
-            alert("All seats are booked!");
+        const fullName = document.getElementById("fullName").value.trim();
+        const passengers = document.getElementById("PassengerCount").value.trim();
+        const seatavail = parseInt(maxSeats)-parseInt(availableSeats)
+        const  passengeravail = parseInt(passengers) - (parseInt(maxSeats) - parseInt(availableSeats))
+        
+        // Check if fields are empty
+        if (fullName === "") {
+            alert("Please enter your Full Name.");
             return false;
         }
-        alert("Are you Sure to Book");
-        return true;
+        if (passengers === "") {
+            alert("Please enter total person count.");
+            return false;
+        }
+
+        // Check seat availability
+        if ((parseInt(availableSeats) + parseInt(passengers)) > parseInt(maxSeats)) {
+            alert(`Reduce ${passengeravail} passenger. Available seats are ${seatavail}`);
+            return false;
+        }
+
+        return confirm("Are you sure to book?");
     }
+
 </script>

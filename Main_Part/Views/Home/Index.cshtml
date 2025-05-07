@@ -1,49 +1,111 @@
-﻿@model List<Tours>
+﻿@model List<Main_Part.Models.Tours>
 @{
     ViewData["Title"] = "Home Page";
     bool hideSection = User.IsInRole("User") || User.IsInRole("Admin");
 }
+<style>
+    button.btn-primary:hover {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+</style>
 
 <div class="container">
-    <main role="main" class="pb-3">
-        <div class="banner-image">
-            <img src="~/tour/banner1.jpg" alt="" style="width: 100%; height: 600px; border-radius: 260px;">
-            <div class="image-overlay">
+    <main role="main" class="pb-2">
+        <div class="banner-image position-relative">
+            <img src="~/tour/banner1.jpg" alt=""
+                style="width: 100%; height: 500px; border-radius: 260px; object-fit: cover;">
+            <div
+                class="image-overlay text-white text-center d-flex flex-column align-items-center justify-content-center">
                 <h1 style="text-shadow:2px 2px #0698d1;" class="display-4">Welcome to Our Tourist Destination</h1>
                 <p style="text-shadow:2px 2px #0698d1;" class="lead">Discover the magic of our beautiful countryside</p>
+
+                <!-- Search Form -->
+                <div class="search-form-container mt-4 w-100 px-3">
+                    <form asp-controller="Home" asp-action="Search" method="get"
+                        class="d-flex flex-column flex-md-row gap-3 justify-content-center align-items-center p-2 rounded-4 shadow-lg"
+                        style="
+                            max-width: 750px; 
+                            margin: auto; 
+                            background: #07050538; 
+                            backdrop-filter: blur(10px); 
+                            border: 1px solid rgb(8, 10, 86);
+                        ">
+
+                        <input type="text" class="form-control rounded-5 shadow-sm px-4 py-2"
+                            placeholder="✈️ Flight From" name="flightFrom"
+                            style="min-width: 150px; background: #1e11115b; color: white;"
+                            onfocus="this.style.color='white'" onblur="this.style.color='white'" />
+
+                        <input type="text" class="form-control rounded-5 shadow-sm px-4 py-2" placeholder="🌍 Flight To"
+                            name="flightTo" style="min-width: 150px; background: #1e11115b; color: white;"
+                            onfocus="this.style.color='white'" onblur="this.style.color='white'" />
+
+
+                        <button type="submit" class="btn btn-primary rounded-5 px-2 py-2 fw-bold shadow-sm"
+                            style="transition: 0.3s; background: linear-gradient(45deg, #205c74, #0d2125); border: none; min-width: 150px;">
+                            Search
+                        </button>
+
+                    </form>
+                </div>
             </div>
         </div>
     </main>
-    @if (!hideSection)
+
+    @if (!hideSection || Model.Count > 0)
     {
-        <section class="tour-details">
+        <section class="tour-details mt-3">
             <span class="tour-span">Explore</span>
             <h2 class="tour-h2">Find your best tour</h2>
+
+            @if (Model.Count == 0)
+            {
+                <div class="alert alert-warning text-center mt-4">No tours found for your search.</div>
+            }
+
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
                 @foreach (var tour in Model)
                 {
                     <div class="col mb-3">
                         <div class="tour-card">
                             <div class="tour-img">
-                                <img src="/tourAddImage/@tour.Photo" alt="">
-                                <h5>@tour.FlightTo</h5>
+                                <img src="/tourAddImage/@tour.Photo" alt="" style="width:100%; height:180px; object-fit:cover;">
+                                <h5 class="mt-2" style="white-space: nowrap;">@tour.FlightTo</h5>
                             </div>
                             <div class="tour-content">
-                                <span class="tour-text-left">From</span>
-                                <span class="tour-from">@tour.FlightFrom</span>
+                                <span class="tour-text-left" style="white-space: nowrap;">From</span>
+                                <span class="tour-from" style="white-space: nowrap;">@tour.FlightFrom</span>
                             </div>
                             <div class="tour-content">
-                                <span class="tour-text-left">To</span>
-                                <span class="tour-to">@tour.FlightTo</span>
+                                <span class="tour-text-left" style="white-space: nowrap;">To</span>
+                                <span class="tour-to" style="white-space: nowrap;">@tour.FlightTo</span>
+                            </div>
+                            <div class="tour-content">
+                                <span class="tour-text-left" style="white-space: nowrap;">Departure Date</span>
+                                <span class="tour-date"
+                                    style="white-space: nowrap;">@tour.DepartureDate.ToString("yyyy-MM-dd")</span>
+                            </div>
+                            <div class="tour-content">
+                                <span class="tour-text-left" style="white-space: nowrap;">Arrival Date</span>
+                                <span class="tour-date"
+                                    style="white-space: nowrap;">@tour.ArrivalDate.ToString("yyyy-MM-dd")</span>
                             </div>
                             <div class="tour-price">
                                 <span class="tour-price-tk">Tk</span>
-                                <span class="tour-price-amount">@tour.Price</span>
+                                <span class="tour-price-amount" style="white-space: nowrap;">@tour.Price</span>
                                 <span class="tour-price-person"> / per person</span>
                             </div>
 
                             <div class="tour-a">
-                                <a asp-area="Identity" asp-page="/Account/Login">Book Now</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-controller="Tour" asp-action="BookNow" asp-route-id="@tour.Id">Book Now</a>
+                                }
+                                else
+                                {
+                                    <a asp-area="Identity" asp-page="/Account/Login">Book Now</a>
+                                }
                             </div>
                         </div>
                     </div>

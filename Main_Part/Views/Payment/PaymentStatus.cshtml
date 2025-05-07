@@ -63,7 +63,7 @@
                         <div>
                             <span class="text-sm text-grey-m2 align-middle"><span style="margin-right: 5px;"><i
                                         class="fa-solid fa-user"></i></span><span>Full Name : </span></span>
-                            <span class="text-600 text-110 text-blue align-middle"> @ViewData["fullname"]</span>
+                            <span class="text-600 text-110 text-blue align-middle">@Model.BookUserNsme</span>
                         </div>
                         <div>
                             <span class="text-sm text-grey-m2 align-middle"><span style="margin-right: 5px;"><i
@@ -87,10 +87,10 @@
                             </div>
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                    class="text-600 text-90">Payment ID:</span> @Model.PaymentId</div>
+                                    class="text-600 text-90">Payment ID:</span> @Model.PaymentID</div>
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
-                                    class="text-600 text-90">Payment Date:</span> @Model.PaymentDate</div>
+                                    class="text-600 text-90">Payment Date:</span> @Model.BookingDate</div>
 
                             <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                                     class="text-600 text-90">Status:</span>

@@ -1,4 +1,5 @@
 @model Main_Part.Models.Booking
+
 @{
 
 }
@@ -16,12 +17,12 @@
 </form> *@
 
 <div class="pay-form" style="margin-bottom: 100px;">
-    <div class="row m-0" >
+    <div class="row m-0">
         <h3 class="text-center text-white  mb-1">Pay Here</h3>
         <div class="col-12 px-4 pay-1">
             <div class="d-flex align-items-end mt-4 mb-2">
-                <p class="h4 m-0 tour-span"><span class="pe-1">@ViewData["FlightFrom"]</span><span> To
-                        @ViewData["FlightTo"]</span></p>
+                <p class="h4 m-0 tour-span"><span class="pe-1">@Model.Tour.FlightFrom</span><span> To
+                        @Model.Tour.FlightTo</span></p>
 
             </div>
             <div class="d-flex justify-content-between" style="margin-top: 32px;">
@@ -30,7 +31,9 @@
                     Name : </p>
                 <p class="fs-20 fw-bold text-white"
                     style="color: rgb(60, 205, 203); font-size: 20px; font-weight: 400;">
-                    @ViewData["fullname"]</p>
+                    @Model.BookUserNsme
+                </p>
+
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <p class="textmuted fw-bold text-white" style="color: antiquewhite; font-size: 17px; font-weight: 400;">
@@ -56,7 +59,8 @@
                             <span class="pay-span"><img src="/tour/Nagad.png" alt="" style="width: 18px;"><span>
                                     Nagad</span></span><br />
                             <input type="radio" oninput="oninputMethod()" name="paymentOption" value="Card" required />
-                            <spa class="pay-span"n><img src="/tour/Card.png" alt="" style="width: 18px;"><span> Card</span></span><br />
+                            <spa class="pay-span" n><img src="/tour/Card.png" alt="" style="width: 18px;"><span>
+                                    Card</span></span><br />
                         </div>
 
                     </div>
