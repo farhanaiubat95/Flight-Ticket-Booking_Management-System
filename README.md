@@ -1,5 +1,7 @@
 # Flight-Ticket-Booking_Management-System
  ASP .NET CORE 8 MVC Project
+ 
+ --> Watch the full project video on my YouTube Channel - https://www.youtube.com/watch?v=ftbNx3d2vpU
 
 
 
